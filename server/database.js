@@ -64,6 +64,11 @@ function sqliteSaveDb() {
 
 async function initDb() {
   if (usePostgres) {
+    const { Pool } = require('pg');
+    pgPool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false }
+    });
     const sql = fs.readFileSync(path.join(__dirname, 'migrate.sql'), 'utf8');
     await pgRun(sql);
   } else {
