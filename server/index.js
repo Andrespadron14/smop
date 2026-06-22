@@ -44,8 +44,8 @@ async function start() {
     });
   } catch (e) {
     console.error('Error al iniciar:', e.message);
-    console.log('\nAsegurate de tener configurada la variable DATABASE_URL');
-    console.log('Ver: https://github.com/tuusuario/smop#readme\n');
+    console.log(e.stack);
+    process.exit(1);
   }
 }
 
