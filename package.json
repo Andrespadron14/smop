@@ -1,0 +1,15 @@
+{
+  "name": "smop-municipio-plaza",
+  "version": "1.0.0",
+  "description": "Sistema de Monitoreo de Obras Publicas - Alcaldia del Municipio Plaza",
+  "scripts": {
+    "install:all": "cd server && npm install && cd ../client && npm install",
+    "build:client": "cd client && npm install && npm run build",
+    "start": "npm run build:client && cd server && node index.js",
+    "start:server": "cd server && node index.js",
+    "dev": "concurrently \"cd server && node index.js\" \"cd client && npm run dev\""
+  },
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  }
+}

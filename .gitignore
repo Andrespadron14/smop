@@ -1,0 +1,9 @@
+node_modules/
+server/database.sqlite
+server/database.sqlite-wal
+server/database.sqlite-shm
+server/public/
+uploads/
+.env
+dist/
+*.log

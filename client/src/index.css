@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: #fafafa;
+  color: #171717;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f5f5f5;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a3a3a3;
+}
+
+@layer base {
+  input, textarea, select {
+    @apply border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-800 focus:border-transparent transition-all duration-150 bg-white;
+  }
+  label {
+    @apply text-sm font-medium text-gray-700 mb-1 block;
+  }
+  table {
+    @apply w-full text-sm;
+  }
+  th {
+    @apply text-left font-medium text-gray-500 uppercase tracking-wider text-xs py-3 px-4;
+  }
+  td {
+    @apply py-3 px-4 border-b border-gray-100;
+  }
+}
+
+.status-pending {
+  @apply bg-gray-100 text-gray-600 border border-gray-300;
+}
+.status-in_progress {
+  @apply bg-gray-800 text-white;
+}
+.status-completed {
+  @apply bg-white text-gray-900 border-2 border-gray-900;
+}
+.status-paused {
+  @apply bg-gray-300 text-gray-700;
+}
+
+.btn {
+  @apply px-4 py-2 text-sm font-medium rounded-md transition-all duration-150 inline-flex items-center gap-2 cursor-pointer border;
+}
+.btn-primary {
+  @apply bg-gray-900 text-white border-gray-900 hover:bg-gray-800;
+}
+.btn-secondary {
+  @apply bg-white text-gray-700 border-gray-300 hover:bg-gray-100;
+}
+.btn-danger {
+  @apply bg-white text-gray-700 border-gray-300 hover:bg-gray-100;
+}
+.btn-sm {
+  @apply px-3 py-1.5 text-xs;
+}
+.btn:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+.card {
+  @apply bg-white border border-gray-200 rounded-lg p-6;
+}
+
+.sidebar-link {
+  @apply flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition-all duration-150;
+}
+.sidebar-link:hover {
+  @apply bg-gray-100;
+}
+.sidebar-link.active {
+  @apply bg-gray-900 text-white;
+}
+
+.badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
+}
