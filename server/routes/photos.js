@@ -12,7 +12,13 @@ const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } });
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_ANON_KEY;
 const useSupabase = !!(supabaseUrl && supabaseKey);
-const supabase = useSupabase ? createClient(supabaseUrl, supabaseKey) : null;
+let _supabase;
+function getSupabase() {
+  if (_supabase === undefined && useSupabase) {
+    try { _supabase = createClient(supabaseUrl, supabaseKey); } catch (e) { console.error('Supabase init error:', e.message); _supabase = null; }
+  }
+  return _supabase;
+}
 
 router.post('/:projectId', auth, upload.single('photo'), async (req, res) => {
   try {
@@ -31,10 +37,11 @@ router.post('/:projectId', auth, upload.single('photo'), async (req, res) => {
       }
     }
     let filename = req.file.originalname;
-    if (useSupabase && supabase) {
+    const sb = getSupabase();
+    if (useSupabase && sb) {
       const ext = path.extname(req.file.originalname);
       filename = `${Date.now()}-${Math.round(Math.random() * 1e9)}${ext}`;
-      const { error: uploadError } = await supabase.storage
+      const { error: uploadError } = await sb.storage
         .from('smop-fotos')
         .upload(filename, req.file.buffer, { contentType: req.file.mimetype });
       if (uploadError) return res.status(500).json({ error: 'Error al subir foto a Supabase: ' + uploadError.message });
