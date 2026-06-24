@@ -13,9 +13,8 @@ function convertPlaceholders(sql) {
 async function getDb() {
   if (usePostgres) {
     if (pgPool) return { exec: pgExec, run: pgRun };
-    const url = process.env.DATABASE_PUBLIC_URL || process.env.DATABASE_URL;
     const { Pool } = require('pg');
-    pgPool = new Pool({ connectionString: url, ssl: true, connectionTimeoutMillis: 10000 });
+    pgPool = new Pool({ connectionString: process.env.DATABASE_URL, ssl: false, connectionTimeoutMillis: 10000 });
     return { exec: pgExec, run: pgRun };
   } else {
     if (sqliteDb) return { exec: sqliteExec, run: sqliteRun };
@@ -62,9 +61,8 @@ function sqliteSaveDb() {
 
 async function initDb() {
   if (usePostgres) {
-    const url = process.env.DATABASE_PUBLIC_URL || process.env.DATABASE_URL;
     const { Pool } = require('pg');
-    pgPool = new Pool({ connectionString: url, ssl: true, connectionTimeoutMillis: 10000 });
+    pgPool = new Pool({ connectionString: process.env.DATABASE_URL, ssl: false, connectionTimeoutMillis: 10000 });
     try {
       const sql = fs.readFileSync(path.join(__dirname, 'migrate.sql'), 'utf8');
       await pgRun(sql);
