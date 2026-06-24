@@ -15,11 +15,7 @@ async function getDb() {
     if (pgPool) return { exec: pgExec, run: pgRun };
     const url = process.env.DATABASE_PUBLIC_URL || process.env.DATABASE_URL;
     const { Pool } = require('pg');
-    pgPool = new Pool({
-      connectionString: url,
-      ssl: { rejectUnauthorized: false },
-      connectionTimeoutMillis: 10000
-    });
+    pgPool = new Pool({ connectionString: url, ssl: false, connectionTimeoutMillis: 10000 });
     return { exec: pgExec, run: pgRun };
   } else {
     if (sqliteDb) return { exec: sqliteExec, run: sqliteRun };
@@ -68,11 +64,7 @@ async function initDb() {
   if (usePostgres) {
     const url = process.env.DATABASE_PUBLIC_URL || process.env.DATABASE_URL;
     const { Pool } = require('pg');
-    pgPool = new Pool({
-      connectionString: url,
-      ssl: { rejectUnauthorized: false },
-      connectionTimeoutMillis: 10000
-    });
+    pgPool = new Pool({ connectionString: url, ssl: false, connectionTimeoutMillis: 10000 });
     try {
       const sql = fs.readFileSync(path.join(__dirname, 'migrate.sql'), 'utf8');
       await pgRun(sql);
