@@ -16,9 +16,8 @@ async function getDb() {
     const { Pool } = require('pg');
     pgPool = new Pool({
       connectionString: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false },
-      connectionTimeoutMillis: 10000,
-      family: 4
+      ssl: false,
+      connectionTimeoutMillis: 10000
     });
     return { exec: pgExec, run: pgRun };
   } else {
@@ -69,9 +68,8 @@ async function initDb() {
     const { Pool } = require('pg');
     pgPool = new Pool({
       connectionString: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false },
-      connectionTimeoutMillis: 10000,
-      family: 4
+      ssl: false,
+      connectionTimeoutMillis: 10000
     });
     const sql = fs.readFileSync(path.join(__dirname, 'migrate.sql'), 'utf8');
     await pgRun(sql);
