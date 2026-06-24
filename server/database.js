@@ -13,10 +13,11 @@ function convertPlaceholders(sql) {
 async function getDb() {
   if (usePostgres) {
     if (pgPool) return { exec: pgExec, run: pgRun };
+    const url = process.env.DATABASE_PUBLIC_URL || process.env.DATABASE_URL;
     const { Pool } = require('pg');
     pgPool = new Pool({
-      connectionString: process.env.DATABASE_URL,
-      ssl: false,
+      connectionString: url,
+      ssl: { rejectUnauthorized: false },
       connectionTimeoutMillis: 10000
     });
     return { exec: pgExec, run: pgRun };
@@ -65,30 +66,13 @@ function sqliteSaveDb() {
 
 async function initDb() {
   if (usePostgres) {
+    const url = process.env.DATABASE_PUBLIC_URL || process.env.DATABASE_URL;
     const { Pool } = require('pg');
     pgPool = new Pool({
-      connectionString: process.env.DATABASE_URL,
-      ssl: false,
+      connectionString: url,
+      ssl: { rejectUnauthorized: false },
       connectionTimeoutMillis: 10000
     });
-    console.log('PGHOST from env:', process.env.PGHOST || 'not set');
-    try {
-      const { Client } = require('pg');
-      const c = new Client({ connectionString: process.env.DATABASE_URL, ssl: false, connectionTimeoutMillis: 5000 });
-      await c.connect();
-      console.log('PG CLIENT CONNECTED (ssl:false)');
-      await c.end();
-    } catch (e) {
-      console.log('PG ssl:false ERROR:', e.constructor.name, e.message, e.code);
-    }
-    try {
-      const c2 = new Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false }, connectionTimeoutMillis: 5000 });
-      await c2.connect();
-      console.log('PG CLIENT CONNECTED (ssl:rejectUnauthorized:false)');
-      await c2.end();
-    } catch (e) {
-      console.log('PG ssl:rejectUnauthorized:false ERROR:', e.constructor.name, e.message, e.code);
-    }
     try {
       const sql = fs.readFileSync(path.join(__dirname, 'migrate.sql'), 'utf8');
       await pgRun(sql);

@@ -34,6 +34,7 @@ app.get('*', (req, res) => {
 
 async function start() {
   try {
+    console.log('INDEX: calling initDb...');
     await initDb();
     const { seed } = require('./seed');
     await seed();
