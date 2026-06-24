@@ -16,7 +16,7 @@ async function getDb() {
     const { Pool } = require('pg');
     pgPool = new Pool({
       connectionString: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false },
+      ssl: false,
       connectionTimeoutMillis: 10000
     });
     return { exec: pgExec, run: pgRun };
@@ -68,11 +68,16 @@ async function initDb() {
     const { Pool } = require('pg');
     pgPool = new Pool({
       connectionString: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false },
+      ssl: false,
       connectionTimeoutMillis: 10000
     });
-    const sql = fs.readFileSync(path.join(__dirname, 'migrate.sql'), 'utf8');
-    await pgRun(sql);
+    try {
+      const sql = fs.readFileSync(path.join(__dirname, 'migrate.sql'), 'utf8');
+      await pgRun(sql);
+    } catch (e) {
+      console.log('initDb ERROR:', e.message, e.code);
+      throw e;
+    }
   } else {
     const DB_PATH = path.join(__dirname, 'database.sqlite');
     const initSqlJs = require('sql.js');
