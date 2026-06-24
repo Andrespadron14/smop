@@ -34,7 +34,6 @@ app.get('*', (req, res) => {
 
 async function start() {
   try {
-    console.log('Iniciando SMOP...');
     await initDb();
     const { seed } = require('./seed');
     await seed();

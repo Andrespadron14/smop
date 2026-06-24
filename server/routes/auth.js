@@ -27,8 +27,7 @@ router.post('/login', async (req, res) => {
     );
     res.json({ token, user: { id: user.id, name: user.name, email: user.email, role: user.role, cargo: user.cargo } });
   } catch (e) {
-    console.log('LOGIN_ERROR:', JSON.stringify({ message: e.message, stack: e.stack?.split('\n')[0], code: e.code }));
-    res.status(500).json({ error: e.message || 'Error interno', detail: e.code || '' });
+    res.status(500).json({ error: e.message });
   }
 });
 
