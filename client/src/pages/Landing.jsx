@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import planTecho from '../images/obras/plan-techo.jpg';
+import vialidadCentro from '../images/obras/vialidad-centro.jpg';
+import asfaltoCasarapa from '../images/obras/asfalto-casarapa.jpg';
+import asfaltoRuizPineda from '../images/obras/asfalto-ruiz-pineda.jpg';
 
 function AccordionItem({ question, answer, open, onClick }) {
   return (
@@ -223,10 +227,10 @@ export default function Landing() {
           </div>
           <div className="grid sm:grid-cols-2 gap-6">
             {[
-              { src: '/images/obras/plan-techo.jpg', title: 'Impermeabilización deTechos', desc: 'Sustitución de cubierta en la Escuela 27 de Febrero, beneficiando a más de 300 estudiantes.', credit: 'Alcaldía de Plaza' },
-              { src: '/images/obras/vialidad-centro.jpg', title: 'Vialidad Centro de Guarenas', desc: 'Rehabilitación de asfalto en el casco central de Guarenas, mejorando el tránsito vehicular y peatonal.', credit: 'Antonio Quintana' },
-              { src: '/images/obras/asfalto-casarapa.jpg', title: 'Pavimentación Nueva Casarapa', desc: 'Colocación de asfalto en las principales calles de la urbanización Nueva Casarapa.', credit: 'Correo del Orinoco' },
-              { src: '/images/obras/asfalto-ruiz-pineda.jpg', title: 'Avenida Ruiz Pineda', desc: 'Pavimentación integral de la Avenida Ruiz Pineda, una de las arterias viales más importantes de Guarenas.', credit: 'VTV' },
+              { src: planTecho, title: 'Impermeabilización de Techos', desc: 'Sustitución de cubierta en la Escuela 27 de Febrero, beneficiando a más de 300 estudiantes.', credit: 'Alcaldía de Plaza' },
+              { src: vialidadCentro, title: 'Vialidad Centro de Guarenas', desc: 'Rehabilitación de asfalto en el casco central de Guarenas, mejorando el tránsito vehicular y peatonal.', credit: 'Antonio Quintana' },
+              { src: asfaltoCasarapa, title: 'Pavimentación Nueva Casarapa', desc: 'Colocación de asfalto en las principales calles de la urbanización Nueva Casarapa.', credit: 'Correo del Orinoco' },
+              { src: asfaltoRuizPineda, title: 'Avenida Ruiz Pineda', desc: 'Pavimentación integral de la Avenida Ruiz Pineda, una de las arterias viales más importantes de Guarenas.', credit: 'VTV' },
             ].map(o => (
               <div key={o.title} className="group relative bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-gray-300 hover:shadow-md transition-all duration-200">
                 <div className="aspect-[4/3] overflow-hidden bg-gray-100">
