@@ -214,6 +214,35 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* Obras en Acción */}
+      <section className="bg-gray-50 border-t border-gray-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">Obras en Acción</h2>
+            <p className="mt-4 text-gray-500 max-w-2xl mx-auto">Fotos reales de obras públicas ejecutadas en el Municipio Plaza.</p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-6">
+            {[
+              { src: '/images/obras/plan-techo.jpg', title: 'Impermeabilización deTechos', desc: 'Sustitución de cubierta en la Escuela 27 de Febrero, beneficiando a más de 300 estudiantes.', credit: 'Alcaldía de Plaza' },
+              { src: '/images/obras/vialidad-centro.jpg', title: 'Vialidad Centro de Guarenas', desc: 'Rehabilitación de asfalto en el casco central de Guarenas, mejorando el tránsito vehicular y peatonal.', credit: 'Antonio Quintana' },
+              { src: '/images/obras/asfalto-casarapa.jpg', title: 'Pavimentación Nueva Casarapa', desc: 'Colocación de asfalto en las principales calles de la urbanización Nueva Casarapa.', credit: 'Correo del Orinoco' },
+              { src: '/images/obras/asfalto-ruiz-pineda.jpg', title: 'Avenida Ruiz Pineda', desc: 'Pavimentación integral de la Avenida Ruiz Pineda, una de las arterias viales más importantes de Guarenas.', credit: 'VTV' },
+            ].map(o => (
+              <div key={o.title} className="group relative bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-gray-300 hover:shadow-md transition-all duration-200">
+                <div className="aspect-[4/3] overflow-hidden bg-gray-100">
+                  <img src={o.src} alt={o.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                </div>
+                <div className="p-5">
+                  <h3 className="text-base font-semibold text-gray-900 mb-1">{o.title}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed mb-2">{o.desc}</p>
+                  <span className="text-xs text-gray-400">Foto: {o.credit}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
         <div className="text-center mb-16">
